@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "네모 광고 상품 소개";
+
+    Layout = "~/Views/Shared/_Base.cshtml";
+}
+
+@section meta {
+    @{
+        await Html.RenderPartialAsync("_OpenGraph", new OpenGraphViewModel
+        {
+            Title = "네모 광고 상품 소개",
+            Description = "네모 광고 상품 소개",
+            ImageUrl = "~/static/icon_120x120r.png",
+            IsLocalImage = true
+        });
+    }
+}
+
+@section pagecss {
+    <environment include="Development">
+        <link asp-append-version="true" rel="stylesheet" href="~/css/gen2/web/agentJoin.css" />
+    </environment>
+    <environment exclude="Development">
+        <link asp-append-version="true" rel="stylesheet" href="~/css/gen2/web/agentJoin.min.css" />
+    </environment>
+}
+
+<div id="AgentJoinContainerPlaceholder"></div>
+
+@section scripts
+    {
+    <script>
+        ReactDOM.render(
+            React.createElement(
+                WebAgentJoinContainer, {
+                    isAuthenticated: isAuthenticated,
+                    currentUserFullName: currentUserFullName,
+                    requestPath: requestPath,
+                    currentController: currentController,
+                    currentAction: currentAction,
+                    renderType: 4
+            }),
+            document.getElementById("AgentJoinContainerPlaceholder")
+        );
+    </script>
+}
